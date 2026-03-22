@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["UG2K26DG7Q.com.calena.calena-HNWI-OS"],
+        "components": [
+          {
+            "/": "/auth/callback*",
+            "comment": "Matches Caléna auth callback URLs"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["UG2K26DG7Q.com.calena.calena-HNWI-OS"]
+  }
+}
