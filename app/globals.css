@@ -11,3 +11,7 @@ html, body {
   background-color: #031B28;
   color: #F8F6F2;
 }
+
+::placeholder {
+  color: rgba(248,246,242,0.25);
+}

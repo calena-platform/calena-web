@@ -45,7 +45,7 @@ export default function Home() {
         padding: '0 24px',
       }}
     >
-      {/* Wordmark — Syncopate Bold, always lowercase */}
+      {/* Wordmark — Syncopate Bold, forced lowercase */}
       <h1
         style={{
           fontFamily: "var(--font-syncopate), 'Syncopate', sans-serif",
@@ -55,6 +55,7 @@ export default function Home() {
           color: '#F8F6F2',
           lineHeight: 1,
           textAlign: 'center',
+          textTransform: 'lowercase',
         }}
       >
         cal&eacute;na
@@ -110,6 +111,21 @@ export default function Home() {
       >
         By Invitation Only
       </div>
+
+      {/* Founding membership status */}
+      <p
+        style={{
+          fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
+          fontSize: '11px',
+          fontWeight: 300,
+          color: 'rgba(248,246,242,0.38)',
+          letterSpacing: '0.08em',
+          textAlign: 'center',
+          marginTop: '12px',
+        }}
+      >
+        Founding membership now closed &middot; Waitlist open
+      </p>
 
       {/* Spacer */}
       <div style={{ height: '24px' }} />
@@ -177,15 +193,19 @@ export default function Home() {
             style={{
               fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
               fontSize: '12px',
-              fontWeight: 400,
-              backgroundColor: '#031B28',
+              fontWeight: 300,
+              background: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(181,153,111,0.2)',
               borderRadius: '6px',
               padding: '10px 14px',
-              color: 'rgba(248,246,242,0.7)',
+              color: 'rgba(248,246,242,0.8)',
               width: '220px',
               outline: 'none',
+              boxSizing: 'border-box',
+              lineHeight: 1,
             }}
+            onFocus={(e) => { e.target.style.borderColor = 'rgba(181,153,111,0.45)' }}
+            onBlur={(e) => { e.target.style.borderColor = 'rgba(181,153,111,0.2)' }}
           />
           <button
             type="submit"
@@ -203,6 +223,8 @@ export default function Home() {
               border: 'none',
               cursor: status === 'submitting' ? 'default' : 'pointer',
               whiteSpace: 'nowrap',
+              boxSizing: 'border-box',
+              lineHeight: 1,
             }}
           >
             Join
@@ -214,15 +236,14 @@ export default function Home() {
       <p
         style={{
           position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          bottom: '24px',
+          left: 0,
+          right: 0,
           fontFamily: "var(--font-montserrat), 'Montserrat', sans-serif",
           fontSize: '9px',
-          fontWeight: 400,
-          color: 'rgba(248,246,242,0.2)',
+          fontWeight: 300,
+          color: 'rgba(248,246,242,0.18)',
           letterSpacing: '0.15em',
-          whiteSpace: 'nowrap',
           textAlign: 'center',
         }}
       >
