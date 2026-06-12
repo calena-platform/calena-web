@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description:
     "Your entire life. One quiet place. A private operating system for the few — by invitation.",
   applicationName: "caléna",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "caléna — The First HNWI Operating System",
     description: "Your entire life. One quiet place.",
@@ -24,6 +25,12 @@ export const metadata: Metadata = {
         alt: "caléna — The Threshold",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "caléna — The First HNWI Operating System",
+    description: "Your entire life. One quiet place.",
+    images: ["/og-image.png"],
   },
   robots: { index: true, follow: true },
 };
@@ -50,7 +57,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

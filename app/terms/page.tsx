@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // Kylie / compliance.
 export default function TermsPage() {
   return (
-    <main className="legal-page">
+    <main id="main-content" className="legal-page">
       <span className="eyebrow">Terms</span>
       <h1>By invitation, by agreement.</h1>
       <p>

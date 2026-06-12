@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // process) lands later — content owned by Kylie / compliance.
 export default function PrivacyPage() {
   return (
-    <main className="legal-page">
+    <main id="main-content" className="legal-page">
       <span className="eyebrow">Privacy</span>
       <h1>Discretion is the architecture.</h1>
       <p>

@@ -30,7 +30,7 @@ export default function Home() {
         <div className="scroll-hint"></div>
       </header>
 
-      <main>
+      <main id="main-content">
         {/* 2 · THE IDEA (manifesto) */}
         <section className="manifesto" aria-label="The idea">
           <div className="center">

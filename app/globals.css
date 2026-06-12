@@ -63,3 +63,36 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* a11y — visible keyboard focus everywhere (mouse focus stays quiet). */
+:focus-visible {
+  outline: 2px solid var(--bronze-light);
+  outline-offset: 3px;
+}
+
+/* Skip link — first focusable element, hidden until focused by keyboard. */
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -130%);
+  z-index: 100;
+  background: var(--navy-deep);
+  color: var(--off);
+  border: 1px solid var(--bronze);
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 22px;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translate(-50%, 12px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}
