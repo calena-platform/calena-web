@@ -98,9 +98,6 @@
   color: var(--off);
   padding-left: 0.55em;
 }
-.wordmark .accent {
-  color: var(--bronze);
-}
 .hero-inner {
   max-width: 780px;
   padding: 0 28px;

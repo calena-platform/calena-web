@@ -14,7 +14,7 @@ export default function Home() {
       <header className="hero">
         <HeroFilm />
         <div className="wordmark">
-          cal<span className="accent">é</span>na
+          caléna
         </div>
         <div className="hero-inner">
           <p className="eyebrow">The First HNWI Operating System</p>
@@ -149,7 +149,7 @@ export default function Home() {
 
       <footer>
         <div className="fm">
-          cal<span style={{ color: "var(--bronze)" }}>é</span>na
+          caléna
         </div>
         <div className="legal">
           Calena Pty Ltd · ABN 91 675 947 707
