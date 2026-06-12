@@ -125,7 +125,7 @@ export default function RequestForm() {
         </label>
       </div>
       <p className="app5">
-        Your details are collected by Caléna Pty Ltd to consider your request
+        Your details are collected by Calena Pty Ltd to consider your request
         and, with your consent, to write to you. They are processed by our email
         and hosting providers and never sold. Without them we cannot consider
         your request. <Link href="/privacy">Privacy</Link>

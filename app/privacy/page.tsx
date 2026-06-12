@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <h1>Discretion is the architecture.</h1>
       <p>
         Our full privacy policy is being finalised. In the meantime: your
-        details are collected by Caléna Pty Ltd to consider your request and,
+        details are collected by Calena Pty Ltd to consider your request and,
         with your consent, to write to you. They are processed by our email and
         hosting providers, held securely, and never sold.
       </p>
