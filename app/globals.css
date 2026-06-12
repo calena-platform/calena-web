@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/*
+  THE THRESHOLD — design tokens (bible §5, locked palette + type).
+  Navy #031B28 is the only true background. Bronze #B5996F is matte —
+  hairlines + accents only, never a gradient fill. Off-white #FAFAFA is text.
+*/
+
+:root {
+  --navy: #031b28;
+  --navy-deep: #02141e;
+  --bronze: #b5996f;
+  --bronze-light: #d4b896;
+  --bronze-dark: #8a7254;
+  --off: #fafafa;
+}
+
+@theme inline {
+  /* Palette as utilities (Tailwind v4) */
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-bronze: var(--bronze);
+  --color-bronze-light: var(--bronze-light);
+  --color-bronze-dark: var(--bronze-dark);
+  --color-off: var(--off);
+
+  /* Type faces — each with one role, fed by self-hosted next/font */
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-lora: var(--font-lora), serif;
+  --font-cormorant: var(--font-cormorant), serif;
+  --font-syncopate: var(--font-syncopate), sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--off);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(181, 153, 111, 0.35);
+}
+
+/* Reduced motion is respected everywhere — drift stills, reveals appear at rest. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
