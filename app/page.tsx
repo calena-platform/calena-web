@@ -1,4 +1,6 @@
 import Link from "next/link";
+import HeroFilm from "@/components/HeroFilm";
+import Reveal from "@/components/Reveal";
 import "./threshold.css";
 
 // The Threshold — calena.com.au. Six beats, single scroll, by invitation.
@@ -9,13 +11,7 @@ export default function Home() {
     <>
       {/* 1 · THRESHOLD (hero) */}
       <header className="hero">
-        <div className="film" aria-hidden="true">
-          <div className="drift d1"></div>
-          <div className="drift d2"></div>
-        </div>
-        <div className="film-note">
-          stand-in for the 12–20s muted film loop · real UI, graded dark
-        </div>
+        <HeroFilm />
         <div className="wordmark">
           cal<span className="accent">é</span>na
         </div>
@@ -37,36 +33,36 @@ export default function Home() {
         {/* 2 · THE IDEA (manifesto) */}
         <section className="manifesto" aria-label="The idea">
           <div className="center">
-            <div className="block">
+            <Reveal className="block">
               <h3>What it is</h3>
               <p>
                 One secure, intelligent place where your travel, your tables,
                 your invitations, your estate, your people — <em>your entire
                 life</em> — runs.
               </p>
-            </div>
-            <div className="block">
+            </Reveal>
+            <Reveal className="block">
               <h3>What it ends</h3>
               <p>
                 The threads, the portals, the phone calls, the repeating of
                 yourself. Coordination disappears into the background,{" "}
                 <em>where it belongs.</em>
               </p>
-            </div>
-            <div className="block">
+            </Reveal>
+            <Reveal className="block">
               <h3>What it keeps</h3>
               <p>
                 Your privacy. Your name never travels here — you hold a numeral
                 instead, as the great houses always have. Discretion is not a
                 setting — <em>it is the architecture.</em>
               </p>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         {/* 3 · THE NUMERAL */}
         <section className="numeral-sec" aria-label="The numeral">
-          <div>
+          <Reveal>
             <div className="numeral">XII</div>
             <div className="hairline"></div>
             <p>
@@ -74,17 +70,17 @@ export default function Home() {
               <br />
               Founding members hold the first.
             </p>
-          </div>
+          </Reveal>
         </section>
 
         {/* 4 · THE GLIMPSE */}
         <section aria-label="The glimpse">
           <div className="glimpse">
-            <div className="glimpse-head">
+            <Reveal className="glimpse-head">
               <p className="eyebrow">A Glimpse</p>
-            </div>
+            </Reveal>
             <div className="cards">
-              <div className="glass">
+              <Reveal className="glass">
                 <div className="ph" aria-hidden="true">
                   <i></i>
                   <i></i>
@@ -95,8 +91,8 @@ export default function Home() {
                   CEIL arrives when called — frosted glass over whatever you
                   were doing, gone when you are done.
                 </span>
-              </div>
-              <div className="glass">
+              </Reveal>
+              <Reveal className="glass">
                 <div className="ph" aria-hidden="true">
                   <i></i>
                   <i></i>
@@ -107,8 +103,8 @@ export default function Home() {
                   A week in Kyoto, assembled while you spoke. Every reservation
                   already holds your preferences.
                 </span>
-              </div>
-              <div className="glass">
+              </Reveal>
+              <Reveal className="glass">
                 <div className="ph" aria-hidden="true">
                   <i></i>
                   <i></i>
@@ -119,7 +115,7 @@ export default function Home() {
                   What reaches you was curated for you. RSVP, calendar,
                   arrangements — one gesture.
                 </span>
-              </div>
+              </Reveal>
             </div>
             <div className="glimpse-note">
               placeholder panels — production uses three real UI captures in
@@ -130,20 +126,21 @@ export default function Home() {
 
         {/* 5 · CEIL */}
         <section className="ceil-sec" aria-label="CEIL">
-          <div>
+          <Reveal>
             <p className="line">
               “You were never meant to manage your life. Only to live it.”
             </p>
             <p className="who">Ceil · Your Concierge Intelligence</p>
-          </div>
+          </Reveal>
         </section>
 
         {/* 6 · THE ASK */}
         <section className="ask" id="ask" aria-label="The ask">
-          <div className="center">
+          <Reveal className="center">
             <p className="eyebrow">By Invitation</p>
             <h2>Request yours.</h2>
-          </div>
+          </Reveal>
+          <Reveal>
           <form>
             <div className="field">
               <label htmlFor="first_name">First name</label>
@@ -211,6 +208,7 @@ export default function Home() {
               </button>
             </div>
           </form>
+          </Reveal>
           <div className="considered">Your request is being considered.</div>
         </section>
       </main>

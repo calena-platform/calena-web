@@ -38,6 +38,18 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-AU" className={fontVariables}>
+      <head>
+        {/*
+          Mark JS as available before first paint, so the reveal hidden-state
+          (gated behind html.js in CSS) only applies when motion can run.
+          No-JS users and crawlers see fully-rendered content.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
