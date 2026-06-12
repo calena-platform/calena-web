@@ -1,26 +1,232 @@
-// The Threshold — calena.com.au. Full six-beat structure lands in commit 2.
+import Link from "next/link";
+import "./threshold.css";
+
+// The Threshold — calena.com.au. Six beats, single scroll, by invitation.
+// Copy is LOCKED (spec 2026-06-12) and reproduced verbatim. Scroll motion,
+// the hero film stand-in, and the live form are layered in later commits.
 export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "0 28px",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "var(--font-syncopate)",
-          fontSize: 15,
-          letterSpacing: "0.55em",
-          paddingLeft: "0.55em",
-        }}
-      >
-        cal<span style={{ color: "var(--bronze)" }}>é</span>na
-      </div>
-    </main>
+    <>
+      {/* 1 · THRESHOLD (hero) */}
+      <header className="hero">
+        <div className="film" aria-hidden="true">
+          <div className="drift d1"></div>
+          <div className="drift d2"></div>
+        </div>
+        <div className="film-note">
+          stand-in for the 12–20s muted film loop · real UI, graded dark
+        </div>
+        <div className="wordmark">
+          cal<span className="accent">é</span>na
+        </div>
+        <div className="hero-inner">
+          <p className="eyebrow">The First HNWI Operating System</p>
+          <h1>
+            Your entire life.
+            <br />
+            One quiet place.
+          </h1>
+          <a className="cta" href="#ask">
+            Request Your Invitation
+          </a>
+        </div>
+        <div className="scroll-hint"></div>
+      </header>
+
+      <main>
+        {/* 2 · THE IDEA (manifesto) */}
+        <section className="manifesto" aria-label="The idea">
+          <div className="center">
+            <div className="block">
+              <h3>What it is</h3>
+              <p>
+                One secure, intelligent place where your travel, your tables,
+                your invitations, your estate, your people — <em>your entire
+                life</em> — runs.
+              </p>
+            </div>
+            <div className="block">
+              <h3>What it ends</h3>
+              <p>
+                The threads, the portals, the phone calls, the repeating of
+                yourself. Coordination disappears into the background,{" "}
+                <em>where it belongs.</em>
+              </p>
+            </div>
+            <div className="block">
+              <h3>What it keeps</h3>
+              <p>
+                Your privacy. Your name never travels here — you hold a numeral
+                instead, as the great houses always have. Discretion is not a
+                setting — <em>it is the architecture.</em>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3 · THE NUMERAL */}
+        <section className="numeral-sec" aria-label="The numeral">
+          <div>
+            <div className="numeral">XII</div>
+            <div className="hairline"></div>
+            <p>
+              A name is for the world. A numeral is for the few.
+              <br />
+              Founding members hold the first.
+            </p>
+          </div>
+        </section>
+
+        {/* 4 · THE GLIMPSE */}
+        <section aria-label="The glimpse">
+          <div className="glimpse">
+            <div className="glimpse-head">
+              <p className="eyebrow">A Glimpse</p>
+            </div>
+            <div className="cards">
+              <div className="glass">
+                <div className="ph" aria-hidden="true">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+                <h4>The Summon</h4>
+                <span>
+                  CEIL arrives when called — frosted glass over whatever you
+                  were doing, gone when you are done.
+                </span>
+              </div>
+              <div className="glass">
+                <div className="ph" aria-hidden="true">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+                <h4>The Itinerary</h4>
+                <span>
+                  A week in Kyoto, assembled while you spoke. Every reservation
+                  already holds your preferences.
+                </span>
+              </div>
+              <div className="glass">
+                <div className="ph" aria-hidden="true">
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                </div>
+                <h4>The Invitation</h4>
+                <span>
+                  What reaches you was curated for you. RSVP, calendar,
+                  arrangements — one gesture.
+                </span>
+              </div>
+            </div>
+            <div className="glimpse-note">
+              placeholder panels — production uses three real UI captures in
+              liquid glass
+            </div>
+          </div>
+        </section>
+
+        {/* 5 · CEIL */}
+        <section className="ceil-sec" aria-label="CEIL">
+          <div>
+            <p className="line">
+              “You were never meant to manage your life. Only to live it.”
+            </p>
+            <p className="who">Ceil · Your Concierge Intelligence</p>
+          </div>
+        </section>
+
+        {/* 6 · THE ASK */}
+        <section className="ask" id="ask" aria-label="The ask">
+          <div className="center">
+            <p className="eyebrow">By Invitation</p>
+            <h2>Request yours.</h2>
+          </div>
+          <form>
+            <div className="field">
+              <label htmlFor="first_name">First name</label>
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                autoComplete="given-name"
+                required
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="last_name">Last name</label>
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                autoComplete="family-name"
+                required
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="country">Country</label>
+              <input
+                id="country"
+                name="country"
+                type="text"
+                autoComplete="country-name"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="referred_by">
+                Who, if anyone, sent you?{" "}
+                <span className="optional">— optional</span>
+              </label>
+              <input id="referred_by" name="referred_by" type="text" />
+            </div>
+            <div className="consent">
+              <input type="checkbox" id="consent_marketing" name="consent_marketing" />
+              <label htmlFor="consent_marketing">
+                Send me caléna’s private correspondence — occasional,
+                considered, easily ended.
+              </label>
+            </div>
+            <p className="app5">
+              Your details are collected by Caléna Pty Ltd to consider your
+              request and, with your consent, to write to you. They are
+              processed by our email and hosting providers and never sold.
+              Without them we cannot consider your request.{" "}
+              <Link href="/privacy">Privacy</Link>
+            </p>
+            <div className="submit-wrap">
+              <button className="cta" type="submit">
+                Request Your Invitation
+              </button>
+            </div>
+          </form>
+          <div className="considered">Your request is being considered.</div>
+        </section>
+      </main>
+
+      <footer>
+        <div className="fm">
+          cal<span style={{ color: "var(--bronze)" }}>é</span>na
+        </div>
+        <div className="legal">
+          Caléna Pty Ltd · ABN [TODO-GEOFF]
+          <br />
+          <Link href="/privacy">Privacy</Link>·
+          <Link href="/terms">Terms</Link>·
+          <a href="mailto:contact@calena.com.au">contact@calena.com.au</a>
+        </div>
+      </footer>
+    </>
   );
 }
