@@ -383,6 +383,14 @@ form {
   color: rgba(181, 153, 111, 0.7);
   text-decoration: none;
 }
+.form-error {
+  text-align: center;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+  color: var(--bronze-light);
+  margin: 0 0 28px;
+}
 .submit-wrap {
   text-align: center;
 }

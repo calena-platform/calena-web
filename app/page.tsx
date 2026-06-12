@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeroFilm from "@/components/HeroFilm";
 import Reveal from "@/components/Reveal";
+import RequestForm from "@/components/RequestForm";
 import "./threshold.css";
 
 // The Threshold — calena.com.au. Six beats, single scroll, by invitation.
@@ -141,75 +142,8 @@ export default function Home() {
             <h2>Request yours.</h2>
           </Reveal>
           <Reveal>
-          <form>
-            <div className="field">
-              <label htmlFor="first_name">First name</label>
-              <input
-                id="first_name"
-                name="first_name"
-                type="text"
-                autoComplete="given-name"
-                required
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="last_name">Last name</label>
-              <input
-                id="last_name"
-                name="last_name"
-                type="text"
-                autoComplete="family-name"
-                required
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="country">Country</label>
-              <input
-                id="country"
-                name="country"
-                type="text"
-                autoComplete="country-name"
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="referred_by">
-                Who, if anyone, sent you?{" "}
-                <span className="optional">— optional</span>
-              </label>
-              <input id="referred_by" name="referred_by" type="text" />
-            </div>
-            <div className="consent">
-              <input type="checkbox" id="consent_marketing" name="consent_marketing" />
-              <label htmlFor="consent_marketing">
-                Send me caléna’s private correspondence — occasional,
-                considered, easily ended.
-              </label>
-            </div>
-            <p className="app5">
-              Your details are collected by Caléna Pty Ltd to consider your
-              request and, with your consent, to write to you. They are
-              processed by our email and hosting providers and never sold.
-              Without them we cannot consider your request.{" "}
-              <Link href="/privacy">Privacy</Link>
-            </p>
-            <div className="submit-wrap">
-              <button className="cta" type="submit">
-                Request Your Invitation
-              </button>
-            </div>
-          </form>
+            <RequestForm />
           </Reveal>
-          <div className="considered">Your request is being considered.</div>
         </section>
       </main>
 
