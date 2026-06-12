@@ -152,7 +152,7 @@ export default function Home() {
           cal<span style={{ color: "var(--bronze)" }}>é</span>na
         </div>
         <div className="legal">
-          Caléna Pty Ltd · ABN [TODO-GEOFF]
+          Calena Pty Ltd · ABN 91 675 947 707
           <br />
           <Link href="/privacy">Privacy</Link>·
           <Link href="/terms">Terms</Link>·
