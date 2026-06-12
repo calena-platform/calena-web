@@ -341,6 +341,9 @@ form {
 }
 .field input {
   width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(181, 153, 111, 0.35);
@@ -356,8 +359,9 @@ form {
   border-bottom-color: var(--bronze-light);
 }
 .field input:focus-visible {
-  outline: 2px solid var(--bronze-light);
-  outline-offset: 4px;
+  outline: none;
+  border-bottom: 2px solid var(--bronze-light);
+  padding-bottom: 11px; /* keeps total height identical — no reflow */
 }
 .consent {
   display: flex;
@@ -513,4 +517,22 @@ footer a {
     opacity: 1;
     transform: none;
   }
+}
+
+/* iOS/WebKit autofill — never the UA yellow. Navy inset, off-white text.
+   The :focus variant re-draws the thickened underline beneath the inset. */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover {
+  -webkit-box-shadow: 0 0 0 1000px var(--navy-deep) inset;
+  box-shadow: 0 0 0 1000px var(--navy-deep) inset;
+  -webkit-text-fill-color: var(--off);
+  caret-color: var(--off);
+  transition: background-color 9999999s ease-out 0s;
+}
+.field input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--navy-deep) inset, 0 1px 0 var(--bronze-light);
+  box-shadow: 0 0 0 1000px var(--navy-deep) inset, 0 1px 0 var(--bronze-light);
+  -webkit-text-fill-color: var(--off);
+  caret-color: var(--off);
+  transition: background-color 9999999s ease-out 0s;
 }
