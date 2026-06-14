@@ -7,12 +7,14 @@ export const CONSENT_WORDING_VERSION = "threshold-2026-06-12";
 export const SOURCE = "calena.com.au";
 
 // Column length ceilings, exactly as the live table enforces them.
+// (about has no DB CHECK; we hold it to a sane ceiling server-side.)
 const LIMITS = {
   first_name: 100,
   last_name: 100,
   email: 320,
   country: 100,
   referred_by: 200,
+  about: 2000,
 } as const;
 
 // Pragmatic email shape: a single @, no spaces, a dotted domain. The DB only
@@ -117,5 +119,133 @@ export function buildInsertRow(
     row.consent_wording_version = CONSENT_WORDING_VERSION;
   }
 
+  return row;
+}
+
+// ---------------------------------------------------------------------------
+// Enquiry path — the /partners and /invest pages.
+//
+// Both pages POST to the same /api/request handler with a `source` field. They
+// share the live invitation_requests table (and its RLS contract) with the
+// member Threshold, but their forms have a different shape: a single name field
+// (split here into first/last), plus company/firm + vertical/fit context that
+// has no dedicated column and so folds, labelled, into `about`. The source is
+// written to the existing `source` column (no CHECK constraint — any text), so
+// these enquiries are distinguishable from member requests downstream.
+// ---------------------------------------------------------------------------
+
+export const ENQUIRY_SOURCES = ["partners", "investor"] as const;
+export type EnquirySource = (typeof ENQUIRY_SOURCES)[number];
+
+export function isEnquirySource(value: unknown): value is EnquirySource {
+  return value === "partners" || value === "investor";
+}
+
+export interface ValidatedEnquiry extends ValidatedRequest {
+  about: string | null;
+  source: EnquirySource;
+}
+
+// Fold the page's context fields into a single labelled `about` blob so nothing
+// the enquirer told us is lost — there are no company/firm/vertical columns.
+function composeAbout(
+  source: EnquirySource,
+  body: Record<string, unknown>,
+): string {
+  const lines: string[] = [];
+  if (source === "partners") {
+    const company = asString(body.company);
+    const vertical = asString(body.vertical);
+    const note = asString(body.note);
+    if (company) lines.push(`Company: ${company}`);
+    if (vertical) lines.push(`Vertical: ${vertical}`);
+    if (note) lines.push(note);
+  } else {
+    const firm = asString(body.firm);
+    const fit = asString(body.fit);
+    if (firm) lines.push(`Firm: ${firm}`);
+    if (fit) lines.push(fit);
+  }
+  return lines.join("\n");
+}
+
+export type EnquiryResult =
+  | { ok: true; data: ValidatedEnquiry }
+  | { ok: false; errors: Record<string, string> };
+
+export function validateEnquiry(
+  source: EnquirySource,
+  input: unknown,
+): EnquiryResult {
+  const body = (input ?? {}) as Record<string, unknown>;
+  const errors: Record<string, string> = {};
+
+  // Single "name" field → first word is the given name, the remainder the
+  // surname. A one-word name keeps an em-dash placeholder surname so the
+  // length-1 / NOT-NULL DB checks pass without inventing a name.
+  const name = asString(body.name);
+  if (name.length < 1) errors.name = "Name is required.";
+  else if (name.length > LIMITS.first_name + LIMITS.last_name + 1)
+    errors.name = "Name is too long.";
+  const parts = name.split(/\s+/).filter(Boolean);
+  const first_name = parts[0] ?? "";
+  const last_name = parts.length > 1 ? parts.slice(1).join(" ") : "—";
+
+  const email = asString(body.email);
+  if (email.length < 1) errors.email = "Email is required.";
+  else if (email.length > LIMITS.email)
+    errors.email = `Must be ${LIMITS.email} characters or fewer.`;
+  else if (!EMAIL_RE.test(email)) errors.email = "Enter a valid email address.";
+
+  // Partners give a country/region; investors do not.
+  const country =
+    source === "partners"
+      ? optional(body.country, LIMITS.country, "country", errors)
+      : null;
+
+  // Investors name who introduced them; partners have no referrer field.
+  const referred_by =
+    source === "investor"
+      ? optional(body.referred_by, LIMITS.referred_by, "referred_by", errors)
+      : null;
+
+  const about = optional(
+    composeAbout(source, body),
+    LIMITS.about,
+    "about",
+    errors,
+  );
+
+  // Consent is opt-in and marketing-only — same rule as the Threshold form.
+  // The investor page has no marketing checkbox (only an NDA acknowledgement),
+  // so it never sends consent and this stays false.
+  const consent_marketing = body.consent_marketing === true;
+
+  if (Object.keys(errors).length > 0) return { ok: false, errors };
+
+  return {
+    ok: true,
+    data: {
+      first_name,
+      last_name,
+      email,
+      country,
+      referred_by,
+      about,
+      consent_marketing,
+      source,
+    },
+  };
+}
+
+// Build the enquiry insert row: the Threshold row, plus the folded `about` and
+// the page's own `source`. Same RLS-safe status + consent integrity as above.
+export function buildEnquiryRow(
+  data: ValidatedEnquiry,
+  nowIso: string,
+): Record<string, unknown> {
+  const row = buildInsertRow(data, nowIso);
+  row.source = data.source;
+  row.about = data.about;
   return row;
 }
