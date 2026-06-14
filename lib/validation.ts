@@ -13,6 +13,7 @@ const LIMITS = {
   email: 320,
   country: 100,
   referred_by: 200,
+  about: 2000,
 } as const;
 
 // Pragmatic email shape: a single @, no spaces, a dotted domain. The DB only
@@ -25,6 +26,7 @@ export interface ValidatedRequest {
   email: string;
   country: string | null;
   referred_by: string | null;
+  about: string | null;
   consent_marketing: boolean;
 }
 
@@ -80,6 +82,8 @@ export function validateRequest(input: unknown): ValidationResult {
     errors,
   );
 
+  const about = optional(body.about, LIMITS.about, "about", errors);
+
   // Consent is opt-in: only an explicit boolean true counts. Anything else
   // (absent, "on", null) is treated as no consent — the request is still
   // accepted; consent governs marketing email only, not consideration.
@@ -89,7 +93,7 @@ export function validateRequest(input: unknown): ValidationResult {
 
   return {
     ok: true,
-    data: { first_name, last_name, email, country, referred_by, consent_marketing },
+    data: { first_name, last_name, email, country, referred_by, about, consent_marketing },
   };
 }
 
@@ -107,6 +111,7 @@ export function buildInsertRow(
     email: data.email,
     country: data.country,
     referred_by: data.referred_by,
+    about: data.about,
     consent_marketing: data.consent_marketing,
     status: "received",
     source: SOURCE,

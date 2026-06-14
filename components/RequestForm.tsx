@@ -25,6 +25,7 @@ export default function RequestForm() {
       email: String(data.get("email") ?? ""),
       country: String(data.get("country") ?? ""),
       referred_by: String(data.get("referred_by") ?? ""),
+      about: String(data.get("about") ?? ""),
       consent_marketing: data.get("consent_marketing") === "on",
     };
 
@@ -116,6 +117,13 @@ export default function RequestForm() {
           <span className="optional">— optional</span>
         </label>
         <input id="referred_by" name="referred_by" type="text" />
+      </div>
+      <div className="field">
+        <label htmlFor="about">
+          Anything that helps us understand you — a link, or a few words{" "}
+          <span className="optional">— optional</span>
+        </label>
+        <input id="about" name="about" type="text" />
       </div>
       <div className="consent">
         <input type="checkbox" id="consent_marketing" name="consent_marketing" />

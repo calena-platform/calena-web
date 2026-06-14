@@ -46,12 +46,14 @@ describe("validateRequest", () => {
       first_name: "a".repeat(101),
       country: "c".repeat(101),
       referred_by: "r".repeat(201),
+      about: "a".repeat(2001),
     });
     expect(r.ok).toBe(false);
     if (!r.ok) {
       expect(r.errors.first_name).toBeDefined();
       expect(r.errors.country).toBeDefined();
       expect(r.errors.referred_by).toBeDefined();
+      expect(r.errors.about).toBeDefined();
     }
   });
 
@@ -104,5 +106,6 @@ describe("buildInsertRow", () => {
     const row = buildInsertRow(r.data, now);
     expect(row.country).toBeNull();
     expect(row.referred_by).toBeNull();
+    expect(row.about).toBeNull();
   });
 });
