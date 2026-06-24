@@ -6,6 +6,20 @@
 export const CONSENT_WORDING_VERSION = "threshold-2026-06-12";
 export const SOURCE = "calena.com.au";
 
+// Honeypot — a hidden field present in every intake form, off-screen and
+// aria-hidden so no human (or screen-reader user) ever fills it. Bots that
+// auto-fill every input populate it; a non-empty value means a bot. No real
+// form field is named `website`, so a legitimate submission always leaves it
+// blank. The handler silently accepts a flagged submission (so it cannot probe
+// the difference) but never inserts it.
+export const HONEYPOT_FIELD = "website";
+
+export function isBotSubmission(input: unknown): boolean {
+  const body = (input ?? {}) as Record<string, unknown>;
+  const v = body[HONEYPOT_FIELD];
+  return typeof v === "string" && v.trim().length > 0;
+}
+
 // Column length ceilings, exactly as the live table enforces them.
 // (about has no DB CHECK; we hold it to a sane ceiling server-side.)
 const LIMITS = {

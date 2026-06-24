@@ -5,6 +5,7 @@ import {
   validateEnquiry,
   buildEnquiryRow,
   isEnquirySource,
+  isBotSubmission,
 } from "@/lib/validation";
 import { rateLimit } from "@/lib/rate-limit";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
@@ -34,6 +35,12 @@ export async function POST(req: NextRequest) {
       { ok: false, error: "Malformed request." },
       { status: 400 },
     );
+  }
+
+  // Honeypot: a filled hidden field means a bot. Accept silently (201, no body
+  // hint) so it can't tell it was caught, but never touch the database.
+  if (isBotSubmission(body)) {
+    return NextResponse.json({ ok: true }, { status: 201 });
   }
 
   // Two intake shapes share this handler: the member Threshold (no source, or

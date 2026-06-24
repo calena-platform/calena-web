@@ -26,6 +26,8 @@ export default function RequestForm() {
       country: String(data.get("country") ?? ""),
       referred_by: String(data.get("referred_by") ?? ""),
       consent_marketing: data.get("consent_marketing") === "on",
+      // Honeypot — always empty for a human; bots fill it and are dropped.
+      website: String(data.get("website") ?? ""),
     };
 
     setStatus("submitting");
@@ -71,6 +73,26 @@ export default function RequestForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate>
+      {/* Honeypot — off-screen, never tab-reachable, never read aloud. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+        }}
+      >
+        <label htmlFor="website">Leave this field empty</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div className="field">
         <label htmlFor="first_name">First name</label>
         <input
