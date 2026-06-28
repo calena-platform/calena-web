@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import DnaConversation from "@/components/DnaConversation";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -12,6 +13,11 @@ type Status = "idle" | "submitting" | "success" | "error";
 export default function RequestForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // Set on a successful member submit so we can run the post-request DNA
+  // conversation. Absent (older response shape) → fall back to success copy.
+  const [dna, setDna] = useState<{ requestId: string; email: string } | null>(
+    null,
+  );
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,6 +47,15 @@ export default function RequestForm() {
       });
 
       if (res.ok) {
+        // The member branch returns the new request id + email so we can run
+        // the DNA conversation. Be defensive: an older response shape (no
+        // requestId) simply shows the locked success copy.
+        const ok = (await res.json().catch(() => null)) as
+          | { requestId?: string; email?: string }
+          | null;
+        if (ok?.requestId && ok?.email) {
+          setDna({ requestId: ok.requestId, email: ok.email });
+        }
         setStatus("success");
         return;
       }
@@ -64,6 +79,11 @@ export default function RequestForm() {
   }
 
   if (status === "success") {
+    // With a request id, continue into the DNA conversation; otherwise fall
+    // back to the locked success copy.
+    if (dna) {
+      return <DnaConversation requestId={dna.requestId} email={dna.email} />;
+    }
     return (
       <div className="considered" style={{ display: "block" }} role="status">
         Your request is being considered.

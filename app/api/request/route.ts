@@ -54,7 +54,14 @@ export async function POST(req: NextRequest) {
   const now = new Date().toISOString();
   let row: Record<string, unknown>;
 
-  if (isEnquirySource(source)) {
+  // Member-branch handoff: the member Threshold returns the new request's id +
+  // email so the client can run the post-submit DNA conversation against the
+  // live submit_lead_dna RPC. The enquiry branch returns nothing extra.
+  const isEnquiry = isEnquirySource(source);
+  let memberId: string | null = null;
+  let memberEmail: string | null = null;
+
+  if (isEnquiry) {
     const result = validateEnquiry(source, body);
     if (!result.ok) {
       return NextResponse.json(
@@ -72,6 +79,11 @@ export async function POST(req: NextRequest) {
       );
     }
     row = buildInsertRow(result.data, now);
+    // invitation_requests.id is a uuid PK that accepts an explicit value; we set
+    // it client-side so the response can carry it to the DNA conversation.
+    memberId = crypto.randomUUID();
+    memberEmail = result.data.email;
+    row.id = memberId;
   }
 
   try {
@@ -90,6 +102,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { ok: false, error: "We could not record your request. Please try again." },
       { status: 500 },
+    );
+  }
+
+  // Member branch carries the new request id + email for the DNA conversation.
+  // Enquiry branch stays exactly as before — a bare { ok: true }.
+  if (!isEnquiry && memberId && memberEmail) {
+    return NextResponse.json(
+      { ok: true, requestId: memberId, email: memberEmail },
+      { status: 201 },
     );
   }
 
