@@ -18,11 +18,21 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
  *   happens IN THE iOS APP, with in-app email verification. So the binding step
  *   needs a decision: redeem on web (build a member auth/sign-up surface here) or
  *   validate-and-hand-off to the app. Until Geoff decides, this page validates +
- *   confirms only; it fabricates no account flow, download link, or fake redeem.
+ *   confirms only; it fabricates no account flow or fake redeem.
  *   See GEOFF-ON-RETURN. Wiring the binding is a follow-up once decided + env set.
+ *
+ * GL-J1 (deep-link bridge) — this page is the WEB half. Invitation links are now
+ *   claimed by the iOS app via AASA (/invitation/*), so a real device with the app
+ *   deep-links straight into the ceremony. For anyone the universal link did not
+ *   auto-open (no app yet, or the link opened in a browser), the VALID state shows
+ *   the typeable code and a quiet path to download caléna — no redeem, no auth.
  */
 
 export const dynamic = "force-dynamic";
+
+// The App Store listing is not public yet.
+// TODO: replace with the real App Store listing URL once published.
+const APP_STORE_URL = "https://apps.apple.com/app/calena";
 
 // Invitation links are private — never index them.
 export const metadata: Metadata = {
@@ -102,6 +112,7 @@ export default async function InvitationPage({
 
         {outcome.kind === "valid" ? (
           <ValidState
+            code={decodeURIComponent(code)}
             tier={outcome.tier}
             maskedEmail={maskEmail(outcome.email)}
           />
@@ -147,9 +158,11 @@ function Hairline() {
 }
 
 function ValidState({
+  code,
   tier,
   maskedEmail,
 }: {
+  code: string;
   tier: string | null;
   maskedEmail: string | null;
 }) {
@@ -198,6 +211,64 @@ function ValidState({
         Keep this link. caléna will open to you when it is time — quietly, and
         only for you.
       </p>
+
+      <div className="mt-2 flex flex-col items-center gap-4">
+        <p
+          className="text-bronze"
+          style={{
+            fontFamily: "var(--font-cinzel)",
+            fontSize: "8.5px",
+            letterSpacing: "0.42em",
+            textTransform: "uppercase",
+            opacity: 0.7,
+            margin: 0,
+          }}
+        >
+          Your code
+        </p>
+        <p
+          className="text-off"
+          style={{
+            fontFamily:
+              "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+            fontSize: "20px",
+            letterSpacing: "0.32em",
+            textTransform: "uppercase",
+            margin: 0,
+          }}
+        >
+          {code.toUpperCase()}
+        </p>
+        <p
+          className="text-off/50"
+          style={{
+            fontFamily: "var(--font-lora)",
+            fontStyle: "italic",
+            fontSize: "12.5px",
+            lineHeight: 1.6,
+            maxWidth: "20rem",
+          }}
+        >
+          Open caléna and enter this when you are asked.
+        </p>
+      </div>
+
+      <a
+        href={APP_STORE_URL}
+        className="text-bronze"
+        style={{
+          fontFamily: "var(--font-cinzel)",
+          fontSize: "11px",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          textDecoration: "none",
+          padding: "12px 28px",
+          border: "0.5px solid var(--bronze)",
+          borderRadius: "2px",
+        }}
+      >
+        Download caléna
+      </a>
     </div>
   );
 }

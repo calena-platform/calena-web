@@ -8,6 +8,10 @@
           {
             "/": "/auth/callback*",
             "comment": "Matches Caléna auth callback URLs"
+          },
+          {
+            "/": "/invitation/*",
+            "comment": "Matches Caléna membership invitation URLs"
           }
         ]
       }
