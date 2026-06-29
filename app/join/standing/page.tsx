@@ -58,7 +58,7 @@ function PricedStanding() {
       </div>
       <Lead>Access, not a transaction.</Lead>
       <Body style={{ textAlign: "center", maxWidth: "52ch", margin: "18px auto 0" }}>
-        Caléna is a private membership: a human and AI concierge that arranges the
+        caléna is a private membership: a human and AI concierge that arranges the
         real world, a vetted community, and access held for the few. By invitation
         only.
       </Body>
@@ -125,7 +125,7 @@ function PricedStanding() {
         }}
       >
         <Stream title="Membership">
-          Your standing with Caléna and CEIL. Real, not refundable.
+          Your standing with caléna and CEIL. Real, not refundable.
         </Stream>
         <Stream title="Service fee">
           A small, decaying fee per arrangement — stated plainly, never hidden.
@@ -139,7 +139,7 @@ function PricedStanding() {
         muted
         style={{ textAlign: "center", fontSize: "12.5px", margin: "30px auto 0", maxWidth: "50ch" }}
       >
-        You pay each partner directly. Caléna never holds your funds.
+        You pay each partner directly. caléna never holds your funds.
       </Body>
 
       <div style={{ marginTop: "42px" }}>

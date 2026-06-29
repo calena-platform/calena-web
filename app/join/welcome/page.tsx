@@ -30,9 +30,9 @@ export default function WelcomePage() {
       <div style={{ marginTop: "30px" }}>
         <Eyebrow>Your seat is settled</Eyebrow>
       </div>
-      <Lead>Welcome to Caléna.</Lead>
+      <Lead>Welcome to caléna.</Lead>
       <Body style={{ maxWidth: "48ch", margin: "18px auto 0" }}>
-        We&rsquo;ve sent your single-use key to your inbox. Open Caléna on your
+        We&rsquo;ve sent your single-use key to your inbox. Open caléna on your
         iPhone, choose <em>&ldquo;I have an invitation,&rdquo;</em> and enter it.
         Your numeral is waiting inside.
       </Body>

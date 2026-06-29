@@ -110,7 +110,7 @@ export function ByInvitation() {
       </div>
       <Lead>Held for the few.</Lead>
       <Body style={{ maxWidth: "46ch", margin: "18px auto 0" }}>
-        Caléna is a private membership, extended by invitation. If your name is
+        caléna is a private membership, extended by invitation. If your name is
         before us, your concierge will be in touch.
       </Body>
     </>

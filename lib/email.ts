@@ -55,14 +55,14 @@ const EMAIL_1_BODY = `<table role="presentation" cellpadding="0" cellspacing="0"
       {{first_name}},
     </td></tr>
     <tr><td style="font-family:'Montserrat',Arial,sans-serif;font-weight:300;font-size:15px;line-height:1.85;color:#e9e6e0;padding:14px 56px 0;">
-      Your name is now before us. Caléna is invitation-only, and every name is considered personally — not by a queue. We&rsquo;ll be in touch shortly, quietly, when there is something to say.
+      Your name is now before us. caléna is invitation-only, and every name is considered personally — not by a queue. We&rsquo;ll be in touch shortly, quietly, when there is something to say.
     </td></tr>
     <tr><td style="font-family:'Montserrat',Arial,sans-serif;font-weight:300;font-size:15px;line-height:1.85;color:#e9e6e0;padding:16px 56px 0;">
       There is nothing for you to do in the meantime.
     </td></tr>
     <tr><td style="padding:30px 56px 0;"><div style="width:100%;height:1px;background:rgba(181,153,111,.22);"></div></td></tr>
     <tr><td style="font-family:'Montserrat',Arial,sans-serif;font-weight:300;font-size:12px;line-height:1.7;color:#8c8c8c;padding:16px 56px 0;">
-      The Caléna concierge
+      The caléna concierge
     </td></tr>
     <tr><td style="font-family:'Montserrat',Arial,sans-serif;font-weight:300;font-size:11px;line-height:1.7;color:#5f6b71;padding:24px 56px 52px;">
       caléna &middot; private membership &middot; Australia<br/>
