@@ -9,6 +9,7 @@ import {
 } from "@/lib/validation";
 import { rateLimit } from "@/lib/rate-limit";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { sendTemplate } from "@/lib/email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -60,6 +61,7 @@ export async function POST(req: NextRequest) {
   const isEnquiry = isEnquirySource(source);
   let memberId: string | null = null;
   let memberEmail: string | null = null;
+  let memberFirstName = "";
 
   if (isEnquiry) {
     const result = validateEnquiry(source, body);
@@ -83,6 +85,7 @@ export async function POST(req: NextRequest) {
     // it client-side so the response can carry it to the DNA conversation.
     memberId = crypto.randomUUID();
     memberEmail = result.data.email;
+    memberFirstName = result.data.first_name;
     row.id = memberId;
   }
 
@@ -108,6 +111,16 @@ export async function POST(req: NextRequest) {
   // Member branch carries the new request id + email for the DNA conversation.
   // Enquiry branch stays exactly as before — a bare { ok: true }.
   if (!isEnquiry && memberId && memberEmail) {
+    // GL-J1a — Email 1 (request received). Fire-and-forget: the lead is already
+    // saved, so an email failure must never fail this request. sendTemplate is a
+    // graceful no-op until RESEND_API_KEY is set, so this is safe pre-launch.
+    void sendTemplate("request-received", memberEmail, {
+      first_name: memberFirstName,
+      email: memberEmail,
+    }).catch((err) => {
+      console.error("Email 1 (request-received) send threw:", err);
+    });
+
     return NextResponse.json(
       { ok: true, requestId: memberId, email: memberEmail },
       { status: 201 },
